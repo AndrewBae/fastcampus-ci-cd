@@ -8,8 +8,8 @@ services:
       - ${HOST_JENKINS_HOME}:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 
-    links:
-      - worker-1
+#    links:
+#      - worker-1
 
   worker-1:
     image: jenkins/ssh-agent:latest-jdk21
