@@ -2,21 +2,20 @@ services:
   jenkins:
     image: jenkins/jenkins:2.471-jdk21
     ports:
-      - "8081:8080"
+      - "8082:8080"
       - "50000:50000"
     volumes:
-      - ${HOST_JENKINS_HOME}:/var/jenkins_home
+      - ${HOST_JENKINS_HOME}:/home/jenkins
       - /var/run/docker.sock:/var/run/docker.sock
-
-#    links:
-#      - worker-1
+    links:
+      - worker-1
 
   worker-1:
     image: jenkins/ssh-agent:latest-jdk21
     volumes:
       - ${HOST_JENKINS_WORKER_1}:/home/jenkins
     environment:
-      - JENKINS_SLAVE_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDVo4KafREGoD5ooQEV0TX4yerjb0aRC3sbwQhWm+enqj0dX/wawYR0sKyhvR0wMecX4NYd+LSnY4xFcvP+xKCCmtb829mE9xHUWYDZqFT+171lZ+lJj58c4ZDmnwGCNFYJgsadKHJh+Zuuyx4J9HZ8azI1mKVkM8CHDUvah2kH/Uj6WUcLc9Pld8Ao8rc/fCk0otG/+H8AlzB5HgBXbPY48IfSzaijkmwaAoL0iDVQEvctlpCD7lLRQsEGOJFOkoCzRjUgwMNC2q+TsyGHttasXnQI08VWnDHp454UOC+dRzjpYR2LrHOAdtsEGAxjLQihlhkQu2J1rEX3d46FcIsvY5/8+XqEcdpBEmgc5jPdCxCTi1ovT1LPqt6CEhg+VLSw4Vs3i2XalYaiYxk4hJdxx7vixb0+Iww0s1CyDOr8pPorVhpIp9Lgu7oEjlZOs8aSYoIFBNDrsO1WdULEZb1GzJmlDIZKlz7Q/U78D05G39FITIO6aZQlZKyMBDl9RAc=
+      - JENKINS_SLAVE_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCbVNgtWv8XYc7B+5i2C3uvJ4MRhlfTzJpj1tdM0nokRpubCcxJrQe/qnoSeXmOjkuc9TlLcuMbXAjYvi0jY63v1FWqBzFFPRu6k0ok1dVqXqA4jQBxrQtNmTKi801Jq7QTOvGBvGEnE2oISQJJJQUYWA3eXk1uLhS1S7zj2TfLzUMjUb9wPpfyl2xo6omiLtcLvsswTAfTxoaXK6N2Wv1DhNmfXr/YUqAPZ9tfLRfuMpcgvIpVMaTtaadOfbsTGhDIIhROttOG5q3SG0tPl2SgyzwzC42CVVqmaq52UB8v2Zuo0NDmjWCYB5na59PHb+IgX5ZwjPeS9P1x8PjjgaxvFN/4rkdCDb+oTKdYUR27X3kGCNy2XE4nf0e2tgsf+sYUSc/SeIsc5O2gunhELYFyb0r4MOiEMYVp/3L4txea6YE30au/k/QX/cRU1i1qXvZU/XAawpH/9Zgi+0VWQer5QRonhrlLmBmjZ9ULmY5+x6KMopPabEzYUK0A+oilF6M=
 
   sonarqube:
     image: sonarqube:9-community
